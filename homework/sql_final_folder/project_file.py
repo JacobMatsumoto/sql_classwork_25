@@ -183,6 +183,7 @@ fake_events_data = [
 
 
 def commit_videos(video_data):
+    """Takes an argument and checks if it is a list or tuple and tries to push it into the videos table"""
     db_conn = None
     try:
         db_conn = sql.connect('astro_db.db')
@@ -204,6 +205,7 @@ def commit_videos(video_data):
 
 
 def commit_astro_status(astro_status_data):
+    """Takes an argument and checks if it is a list or tuple and tries to push it into the astroStatus table"""
     db_conn = None
     try:
         db_conn = sql.connect('astro_db.db')
@@ -225,6 +227,7 @@ def commit_astro_status(astro_status_data):
 
 
 def commit_sensor_data(sensor_data):
+    """Takes an argument and checks if it is a list or tuple and tries to push it into the sensorReadings table"""
     db_conn = None
     try:
         db_conn = sql.connect('astro_db.db')
@@ -247,6 +250,7 @@ def commit_sensor_data(sensor_data):
 
 
 def commit_event_data(event_data):
+    """Takes an argument and checks if it is a list or tuple and tries to push it into the event table"""
     db_conn = None
     try:
         db_conn = sql.connect('astro_db.db')
@@ -272,7 +276,7 @@ def turn_tables_into_list_of_dicts():
     """
     Creates a list of dictionaries for each set of data for each table. Allows for easy assigning variables to specific data for later.
 
-    Would be done like this:
+    Would be done/accessed like this:
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
     location_video_2 = video_data[1]["location"]
