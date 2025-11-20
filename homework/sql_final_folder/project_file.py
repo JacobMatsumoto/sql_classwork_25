@@ -15,7 +15,7 @@ import sqlite3 as sql
 
 
 def drop_all_tables():
-    """Checks to see if the table exists and drops them"""
+    """Checks to see if the tables exists and drops them"""
     db_conn = None
     confirmed = False
     try:
