@@ -9,9 +9,21 @@
 """
 
 import sqlite3 as sql
+import tkinter as tk
+from tkinter import messagebox
+root = tk.Tk()
+root.title("Astro Database")
+root.geometry("1000x1000")
+
+# centers the main content https://www.pythontutorial.net/tkinter/tkinter-grid/
+root.grid_columnconfigure(0, weight=1)
+root.grid_columnconfigure(2, weight=1)
 
 # cursor.execute("CREATE TABLE test(test1 TEXT, test2 TEXT, test3 TEXT)") #test of connectivity
 # cursor.execute("DROP TABLE IF EXISTS test") #test of connectivity
+
+menu_bar = tk.Menu(root)
+root.config(menu=menu_bar)
 
 
 def drop_all_tables():
@@ -457,6 +469,56 @@ def turn_tables_into_list_of_dicts():
     finally:
         if db_conn is not None:
             db_conn.close()
+
+
+def build_videos_gui():
+
+    for widget in root.winfo_children():  # From homework file in advanced python
+        if isinstance(widget, tk.Frame):
+            widget.destroy()  # end
+
+    video_frame = tk.Frame(root)
+    video_frame.pack(padx=10, pady=10)
+
+    video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
+    tk.Label(video_frame, text="Videos", font=("TkDefaultFont", 14, "bold")).grid(
+        row=0, column=0, columnspan=2, pady=5, padx=5)
+    field_col = 0
+    field_labels = ("videoID", "filePath", "fileName",
+                    "videoDuration", "timeStamp", "whichCamera", "resolution", "gpsLat", "gpsLong", "location")
+    for field_label in field_labels:
+        tk.Label(video_frame, text=f"{field_label}").grid(
+            row=1, column=field_col, padx=10, pady=5)
+        field_col += 1
+    i = 2
+    for data in video_data:
+        tk.Label(video_frame, text=f"{data['videoID']}").grid(
+            row=i, column=0, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['filePath']}").grid(
+            row=i, column=1, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['fileName']}").grid(
+            row=i, column=2, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['videoDuration']}").grid(
+            row=i, column=3, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['timeStamp']}").grid(
+            row=i, column=4, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['whichCamera']}").grid(
+            row=i, column=5, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['resolution']}").grid(
+            row=i, column=6, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['gpsLat']}").grid(
+            row=i, column=7, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['gpsLong']}").grid(
+            row=i, column=8, padx=10, pady=5)
+        tk.Label(video_frame, text=f"{data['location']}").grid(
+            row=i, column=9, padx=10, pady=5)
+        i += 1
+
+
+build_videos_gui()
+
+
+root.mainloop()
 
 
 # commit_astro_status(fake_astro_status_data)
