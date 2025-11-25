@@ -13,7 +13,13 @@ import tkinter as tk
 from tkinter import messagebox
 root = tk.Tk()
 root.title("Astro Database")
-root.geometry("1000x1000")
+# works for python 3.4 --Screen width+height utilized from stack overflow https://stackoverflow.com/questions/27574854/passing-variables-to-tkinter-geometry-method
+
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+screen_resolution = str(screen_width)+'x'+str(screen_height)
+
+root.geometry(screen_resolution)
 
 # centers the main content https://www.pythontutorial.net/tkinter/tkinter-grid/
 root.grid_columnconfigure(0, weight=1)
@@ -481,8 +487,14 @@ def build_videos_gui():
     video_frame.pack(padx=10, pady=10)
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
-    tk.Label(video_frame, text="Videos", font=("TkDefaultFont", 14, "bold")).grid(
+    tk.Button(video_frame, text="Videos", font=("TkDefaultFont", 14, "bold"), command=build_videos_gui).grid(
         row=0, column=0, columnspan=2, pady=5, padx=5)
+    tk.Button(video_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"), command=build_astro_status_gui).grid(
+        row=0, column=2, columnspan=2, pady=5, padx=5)
+    tk.Button(video_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"), command=build_sensor_readings_gui).grid(
+        row=0, column=4, columnspan=2, pady=5, padx=5)
+    tk.Button(video_frame, text="events", font=("TkDefaultFont", 14, "bold"), command=build_events_gui).grid(
+        row=0, column=6, columnspan=2, pady=5, padx=5)
     field_col = 0
     field_labels = ("videoID", "filePath", "fileName",
                     "videoDuration", "timeStamp", "whichCamera", "resolution", "gpsLat", "gpsLong", "location")
@@ -515,20 +527,173 @@ def build_videos_gui():
         i += 1
 
 
+def build_astro_status_gui():
+
+    for widget in root.winfo_children():  # From homework file in advanced python
+        if isinstance(widget, tk.Frame):
+            widget.destroy()  # end
+
+    astro_status_frame = tk.Frame(root)
+    astro_status_frame.pack(padx=10, pady=10)
+
+    video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
+    tk.Button(astro_status_frame, text="Videos", font=("TkDefaultFont", 14, "bold"), command=build_videos_gui).grid(
+        row=0, column=0, columnspan=2, pady=5, padx=5)
+    tk.Button(astro_status_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"), command=build_astro_status_gui).grid(
+        row=0, column=2, columnspan=2, pady=5, padx=5)
+    tk.Button(astro_status_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"), command=build_sensor_readings_gui).grid(
+        row=0, column=4, columnspan=2, pady=5, padx=5)
+    tk.Button(astro_status_frame, text="events", font=("TkDefaultFont", 14, "bold"), command=build_events_gui).grid(
+        row=0, column=6, columnspan=2, pady=5, padx=5)
+    field_col = 0
+    field_labels = ("astroStatusID", "batteryLife", "locationInSchool",
+                    "gpsStatus", "gpsLat", "gpsLong", "camFrontStatus", "camRearStatus", "currentTask", "timeStamp", "errorLog")
+    for field_label in field_labels:
+        tk.Label(astro_status_frame, text=f"{field_label}").grid(
+            row=1, column=field_col, padx=10, pady=5)
+        field_col += 1
+    i = 2
+    for data in astroStatus_data:
+        tk.Label(astro_status_frame, text=f"{data['astroStatusID']}").grid(
+            row=i, column=0, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['batteryLife']}").grid(
+            row=i, column=1, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['locationInSchool']}").grid(
+            row=i, column=2, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['gpsStatus']}").grid(
+            row=i, column=3, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['gpsLat']}").grid(
+            row=i, column=4, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['gpsLong']}").grid(
+            row=i, column=5, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['camFrontStatus']}").grid(
+            row=i, column=6, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['camRearStatus']}").grid(
+            row=i, column=7, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['currentTask']}").grid(
+            row=i, column=8, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['timeStamp']}").grid(
+            row=i, column=9, padx=10, pady=5)
+        tk.Label(astro_status_frame, text=f"{data['errorLog']}").grid(
+            row=i, column=10, padx=10, pady=5)
+        i += 1
+
+
+def build_sensor_readings_gui():
+
+    for widget in root.winfo_children():
+        if isinstance(widget, tk.Frame):
+            widget.destroy()
+
+    sensor_readings_frame = tk.Frame(root)
+    sensor_readings_frame.pack(padx=10, pady=10)
+
+    video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
+
+    tk.Button(sensor_readings_frame, text="Videos", font=("TkDefaultFont", 14, "bold"), command=build_videos_gui).grid(
+        row=0, column=0, columnspan=2, pady=5, padx=5)
+    tk.Button(sensor_readings_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"), command=build_astro_status_gui).grid(
+        row=0, column=2, columnspan=2, pady=5, padx=5)
+    tk.Button(sensor_readings_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"), command=build_sensor_readings_gui).grid(
+        row=0, column=4, columnspan=2, pady=5, padx=5)
+    tk.Button(sensor_readings_frame, text="events", font=("TkDefaultFont", 14, "bold"), command=build_events_gui).grid(
+        row=0, column=6, columnspan=2, pady=5, padx=5)
+
+    field_col = 0
+    field_labels = (
+        "readingID", "gasReading", "tempHumiReading", "usReading",
+        "severity", "timeStamp", "gpsLat", "gpsLong"
+    )
+    for field_label in field_labels:
+        tk.Label(sensor_readings_frame, text=f"{field_label}").grid(
+            row=1, column=field_col, padx=10, pady=5)
+        field_col += 1
+
+    i = 2
+    for data in sensor_data:
+        tk.Label(sensor_readings_frame, text=f"{data['readingID']}").grid(
+            row=i, column=0, padx=10, pady=5)
+        tk.Label(sensor_readings_frame, text=f"{data['gasReading']}").grid(
+            row=i, column=1, padx=10, pady=5)
+        tk.Label(sensor_readings_frame, text=f"{data['tempHumiReading']}").grid(
+            row=i, column=2, padx=10, pady=5)
+        tk.Label(sensor_readings_frame, text=f"{data['usReading']}").grid(
+            row=i, column=3, padx=10, pady=5)
+        tk.Label(sensor_readings_frame, text=f"{data['severity']}").grid(
+            row=i, column=4, padx=10, pady=5)
+        tk.Label(sensor_readings_frame, text=f"{data['timeStamp']}").grid(
+            row=i, column=5, padx=10, pady=5)
+        tk.Label(sensor_readings_frame, text=f"{data['gpsLat']}").grid(
+            row=i, column=6, padx=10, pady=5)
+        tk.Label(sensor_readings_frame, text=f"{data['gpsLong']}").grid(
+            row=i, column=7, padx=10, pady=5)
+        i += 1
+
+
+def build_events_gui():
+
+    for widget in root.winfo_children():
+        if isinstance(widget, tk.Frame):
+            widget.destroy()
+
+    events_frame = tk.Frame(root)
+    events_frame.pack(padx=10, pady=10)
+
+    video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
+
+    # tk.Label(events_frame, text="events", font=("TkDefaultFont", 14, "bold")).grid(
+    #     row=0, column=0, columnspan=2, pady=5, padx=5)
+    tk.Button(events_frame, text="Videos", font=("TkDefaultFont", 14, "bold"), command=build_videos_gui).grid(
+        row=0, column=0, columnspan=2, pady=5, padx=5)
+    tk.Button(events_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"), command=build_astro_status_gui).grid(
+        row=0, column=2, columnspan=2, pady=5, padx=5)
+    tk.Button(events_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"), command=build_sensor_readings_gui).grid(
+        row=0, column=4, columnspan=2, pady=5, padx=5)
+    tk.Button(events_frame, text="events", font=("TkDefaultFont", 14, "bold"), command=build_events_gui).grid(
+        row=0, column=6, columnspan=2, pady=5, padx=5)
+
+    field_col = 0
+    field_labels = (
+        "eventID", "videoID", "astroStatusID", "readingID",
+        "eventType", "confidence", "urgency", "timeStamp",
+        "detectedBy", "whereOccured", "gpsLat", "gpsLong", "eventReport"
+    )
+    for field_label in field_labels:
+        tk.Label(events_frame, text=f"{field_label}").grid(
+            row=1, column=field_col, padx=10, pady=5)
+        field_col += 1
+
+    i = 2
+    for data in event_data:
+        tk.Label(events_frame, text=f"{data['eventID']}").grid(
+            row=i, column=0, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['videoID']}").grid(
+            row=i, column=1, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['astroStatusID']}").grid(
+            row=i, column=2, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['readingID']}").grid(
+            row=i, column=3, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['eventType']}").grid(
+            row=i, column=4, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['confidence']}").grid(
+            row=i, column=5, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['urgency']}").grid(
+            row=i, column=6, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['timeStamp']}").grid(
+            row=i, column=7, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['detectedBy']}").grid(
+            row=i, column=8, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['whereOccured']}").grid(
+            row=i, column=9, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['gpsLat']}").grid(
+            row=i, column=10, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['gpsLong']}").grid(
+            row=i, column=11, padx=10, pady=5)
+        tk.Label(events_frame, text=f"{data['eventReport']}").grid(
+            row=i, column=12, padx=10, pady=5)
+        i += 1
+
+
 build_videos_gui()
 
-
 root.mainloop()
-
-
-# commit_astro_status(fake_astro_status_data)
-
-# commit_videos(fake_videos_data)
-
-# commit_sensor_data(fake_sensor_readings_data)
-
-# commit_event_data(fake_events_data)
-
-# drop_all_tables()
-
-# restore_empty_tables()
