@@ -479,22 +479,33 @@ def turn_tables_into_list_of_dicts():
 
 def build_videos_gui():
 
-    for widget in root.winfo_children():  # From homework file in advanced python
+    for widget in root.winfo_children():  # From homework file in advanced python, it destroys the previous window
         if isinstance(widget, tk.Frame):
             widget.destroy()  # end
+
+    nav_frame = tk.Frame(root)
+    nav_frame.pack(padx=10, pady=10)
+
+    tk.Button(nav_frame, text="Videos", font=("TkDefaultFont", 14, "bold"),
+              background="light grey", command=build_videos_gui).pack(
+        side="left", padx=5)
+
+    tk.Button(nav_frame, text="Astro's Status", font=("TkDefaultFont", 14),
+              command=build_astro_status_gui).pack(side="left", padx=5)
+
+    tk.Button(nav_frame, text="Sensor Readings", font=("TkDefaultFont", 14),
+              command=build_sensor_readings_gui).pack(side="left", padx=5)
+
+    tk.Button(nav_frame, text="Events", font=("TkDefaultFont", 14), command=build_events_gui).pack(
+        side="left", padx=5)
 
     video_frame = tk.Frame(root)
     video_frame.pack(padx=10, pady=10)
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
-    tk.Button(video_frame, text="Videos", font=("TkDefaultFont", 14, "bold"), command=build_videos_gui).grid(
-        row=0, column=0, columnspan=2, pady=5, padx=5)
-    tk.Button(video_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"), command=build_astro_status_gui).grid(
-        row=0, column=2, columnspan=2, pady=5, padx=5)
-    tk.Button(video_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"), command=build_sensor_readings_gui).grid(
-        row=0, column=4, columnspan=2, pady=5, padx=5)
-    tk.Button(video_frame, text="events", font=("TkDefaultFont", 14, "bold"), command=build_events_gui).grid(
-        row=0, column=6, columnspan=2, pady=5, padx=5)
+
+
+    
     field_col = 0
     field_labels = ("videoID", "filePath", "fileName",
                     "videoDuration", "timeStamp", "whichCamera", "resolution", "gpsLat", "gpsLong", "location")
@@ -533,18 +544,28 @@ def build_astro_status_gui():
         if isinstance(widget, tk.Frame):
             widget.destroy()  # end
 
+    nav_frame = tk.Frame(root)
+    nav_frame.pack(padx=10, pady=10)
+
+    tk.Button(nav_frame, text="Videos", font=("TkDefaultFont", 14), command=build_videos_gui).pack(
+        side="left", padx=5)
+
+    tk.Button(nav_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"),
+              background="light grey", command=build_astro_status_gui).pack(side="left", padx=5)
+
+    tk.Button(nav_frame, text="Sensor Readings", font=("TkDefaultFont", 14),
+              command=build_sensor_readings_gui).pack(side="left", padx=5)
+
+    tk.Button(nav_frame, text="Events", font=("TkDefaultFont", 14), command=build_events_gui).pack(
+        side="left", padx=5)
+
     astro_status_frame = tk.Frame(root)
     astro_status_frame.pack(padx=10, pady=10)
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
-    tk.Button(astro_status_frame, text="Videos", font=("TkDefaultFont", 14, "bold"), command=build_videos_gui).grid(
-        row=0, column=0, columnspan=2, pady=5, padx=5)
-    tk.Button(astro_status_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"), command=build_astro_status_gui).grid(
-        row=0, column=2, columnspan=2, pady=5, padx=5)
-    tk.Button(astro_status_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"), command=build_sensor_readings_gui).grid(
-        row=0, column=4, columnspan=2, pady=5, padx=5)
-    tk.Button(astro_status_frame, text="events", font=("TkDefaultFont", 14, "bold"), command=build_events_gui).grid(
-        row=0, column=6, columnspan=2, pady=5, padx=5)
+
+
+
     field_col = 0
     field_labels = ("astroStatusID", "batteryLife", "locationInSchool",
                     "gpsStatus", "gpsLat", "gpsLong", "camFrontStatus", "camRearStatus", "currentTask", "timeStamp", "errorLog")
@@ -585,19 +606,27 @@ def build_sensor_readings_gui():
         if isinstance(widget, tk.Frame):
             widget.destroy()
 
+    nav_frame = tk.Frame(root)
+    nav_frame.pack(padx=10, pady=10)
+
+    tk.Button(nav_frame, text="Videos", font=("TkDefaultFont", 14), command=build_videos_gui).pack(
+        side="left", padx=5)
+    
+    tk.Button(nav_frame, text="Astro's Status", font=("TkDefaultFont", 14),
+              command=build_astro_status_gui).pack(side="left", padx=5)
+    
+    tk.Button(nav_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"),
+              background="light grey", command=build_sensor_readings_gui).pack(side="left", padx=5)
+    
+    tk.Button(nav_frame, text="Events", font=("TkDefaultFont", 14), command=build_events_gui).pack(
+        side="left", padx=5)
+
     sensor_readings_frame = tk.Frame(root)
     sensor_readings_frame.pack(padx=10, pady=10)
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
 
-    tk.Button(sensor_readings_frame, text="Videos", font=("TkDefaultFont", 14, "bold"), command=build_videos_gui).grid(
-        row=0, column=0, columnspan=2, pady=5, padx=5)
-    tk.Button(sensor_readings_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"), command=build_astro_status_gui).grid(
-        row=0, column=2, columnspan=2, pady=5, padx=5)
-    tk.Button(sensor_readings_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"), command=build_sensor_readings_gui).grid(
-        row=0, column=4, columnspan=2, pady=5, padx=5)
-    tk.Button(sensor_readings_frame, text="events", font=("TkDefaultFont", 14, "bold"), command=build_events_gui).grid(
-        row=0, column=6, columnspan=2, pady=5, padx=5)
+
 
     field_col = 0
     field_labels = (
@@ -636,6 +665,22 @@ def build_events_gui():
         if isinstance(widget, tk.Frame):
             widget.destroy()
 
+    nav_frame = tk.Frame(root)
+    nav_frame.pack(padx=10, pady=10)
+
+    tk.Button(nav_frame, text="Videos", font=("TkDefaultFont", 14), command=build_videos_gui).pack(
+        side="left", padx=5)
+
+    tk.Button(nav_frame, text="Astro's Status", font=("TkDefaultFont", 14),
+              command=build_astro_status_gui).pack(side="left", padx=5)
+
+    tk.Button(nav_frame, text="Sensor Readings", font=("TkDefaultFont", 14),
+              command=build_sensor_readings_gui).pack(side="left", padx=5)
+
+    tk.Button(nav_frame, text="Events", font=("TkDefaultFont", 14, "bold"), background="light grey", command=build_events_gui).pack(
+        side="left", padx=5)
+
+
     events_frame = tk.Frame(root)
     events_frame.pack(padx=10, pady=10)
 
@@ -643,14 +688,6 @@ def build_events_gui():
 
     # tk.Label(events_frame, text="events", font=("TkDefaultFont", 14, "bold")).grid(
     #     row=0, column=0, columnspan=2, pady=5, padx=5)
-    tk.Button(events_frame, text="Videos", font=("TkDefaultFont", 14, "bold"), command=build_videos_gui).grid(
-        row=0, column=0, columnspan=2, pady=5, padx=5)
-    tk.Button(events_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"), command=build_astro_status_gui).grid(
-        row=0, column=2, columnspan=2, pady=5, padx=5)
-    tk.Button(events_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"), command=build_sensor_readings_gui).grid(
-        row=0, column=4, columnspan=2, pady=5, padx=5)
-    tk.Button(events_frame, text="events", font=("TkDefaultFont", 14, "bold"), command=build_events_gui).grid(
-        row=0, column=6, columnspan=2, pady=5, padx=5)
 
     field_col = 0
     field_labels = (
