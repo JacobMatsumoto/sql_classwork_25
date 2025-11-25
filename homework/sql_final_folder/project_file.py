@@ -477,34 +477,25 @@ def turn_tables_into_list_of_dicts():
             db_conn.close()
 
 
+
+
 def build_videos_gui():
+    """
+    This docstring applies to all 4 build_{tablename}_gui functions
+    this function starts by destroying the current window. (I got that code from the coffee/donut shop project in advanced python) it then creates a new window. It uses the turn_tables_into_list_of_dicts function and assigns the values returned, it then uses only the relevant one to create the table by looping over the list of dictionaries the turn_tables_into_list_of_dicts function returns then assigning each row a dictionary, and each column of that row with it's respective dictionary value. It then goes and does the next row/dict. 
+    """
 
     for widget in root.winfo_children():  # From homework file in advanced python, it destroys the previous window
         if isinstance(widget, tk.Frame):
             widget.destroy()  # end
-
-    nav_frame = tk.Frame(root)
-    nav_frame.pack(padx=10, pady=10)
-
-    tk.Button(nav_frame, text="Videos", font=("TkDefaultFont", 14, "bold"),
-              background="light grey", command=build_videos_gui).pack(
-        side="left", padx=5)
-
-    tk.Button(nav_frame, text="Astro's Status", font=("TkDefaultFont", 14),
-              command=build_astro_status_gui).pack(side="left", padx=5)
-
-    tk.Button(nav_frame, text="Sensor Readings", font=("TkDefaultFont", 14),
-              command=build_sensor_readings_gui).pack(side="left", padx=5)
-
-    tk.Button(nav_frame, text="Events", font=("TkDefaultFont", 14), command=build_events_gui).pack(
-        side="left", padx=5)
 
     video_frame = tk.Frame(root)
     video_frame.pack(padx=10, pady=10)
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
 
-
+    tk.Label(video_frame, text="Videos", font=("TkDefaultFont", 14, "bold")).grid(
+        row=0, column=0, columnspan=2, pady=5, padx=5)
     
     field_col = 0
     field_labels = ("videoID", "filePath", "fileName",
@@ -539,32 +530,22 @@ def build_videos_gui():
 
 
 def build_astro_status_gui():
+    """
+    This docstring applies to all 4 build_{tablename}_gui functions
+    this function starts by destroying the current window. (I got that code from the coffee/donut shop project in advanced python) it then creates a new window. It uses the turn_tables_into_list_of_dicts function and assigns the values returned, it then uses only the relevant one to create the table by looping over the list of dictionaries the turn_tables_into_list_of_dicts function returns then assigning each row a dictionary, and each column of that row with it's respective dictionary value. It then goes and does the next row/dict. 
+    """
 
     for widget in root.winfo_children():  # From homework file in advanced python
         if isinstance(widget, tk.Frame):
             widget.destroy()  # end
-
-    nav_frame = tk.Frame(root)
-    nav_frame.pack(padx=10, pady=10)
-
-    tk.Button(nav_frame, text="Videos", font=("TkDefaultFont", 14), command=build_videos_gui).pack(
-        side="left", padx=5)
-
-    tk.Button(nav_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold"),
-              background="light grey", command=build_astro_status_gui).pack(side="left", padx=5)
-
-    tk.Button(nav_frame, text="Sensor Readings", font=("TkDefaultFont", 14),
-              command=build_sensor_readings_gui).pack(side="left", padx=5)
-
-    tk.Button(nav_frame, text="Events", font=("TkDefaultFont", 14), command=build_events_gui).pack(
-        side="left", padx=5)
 
     astro_status_frame = tk.Frame(root)
     astro_status_frame.pack(padx=10, pady=10)
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
 
-
+    tk.Label(astro_status_frame, text="Astro's Status", font=("TkDefaultFont", 14, "bold")).grid(
+        row=0, column=0, columnspan=2, pady=5, padx=5)
 
     field_col = 0
     field_labels = ("astroStatusID", "batteryLife", "locationInSchool",
@@ -601,32 +582,22 @@ def build_astro_status_gui():
 
 
 def build_sensor_readings_gui():
+    """
+    This docstring applies to all 4 build_{tablename}_gui functions
+    this function starts by destroying the current window. (I got that code from the coffee/donut shop project in advanced python) it then creates a new window. It uses the turn_tables_into_list_of_dicts function and assigns the values returned, it then uses only the relevant one to create the table by looping over the list of dictionaries the turn_tables_into_list_of_dicts function returns then assigning each row a dictionary, and each column of that row with it's respective dictionary value. It then goes and does the next row/dict. 
+    """
 
     for widget in root.winfo_children():
         if isinstance(widget, tk.Frame):
             widget.destroy()
-
-    nav_frame = tk.Frame(root)
-    nav_frame.pack(padx=10, pady=10)
-
-    tk.Button(nav_frame, text="Videos", font=("TkDefaultFont", 14), command=build_videos_gui).pack(
-        side="left", padx=5)
-    
-    tk.Button(nav_frame, text="Astro's Status", font=("TkDefaultFont", 14),
-              command=build_astro_status_gui).pack(side="left", padx=5)
-    
-    tk.Button(nav_frame, text="Sensor Readings", font=("TkDefaultFont", 14, "bold"),
-              background="light grey", command=build_sensor_readings_gui).pack(side="left", padx=5)
-    
-    tk.Button(nav_frame, text="Events", font=("TkDefaultFont", 14), command=build_events_gui).pack(
-        side="left", padx=5)
 
     sensor_readings_frame = tk.Frame(root)
     sensor_readings_frame.pack(padx=10, pady=10)
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
 
-
+    tk.Label(sensor_readings_frame, text="Sensor Data", font=("TkDefaultFont", 14, "bold")).grid(
+        row=0, column=0, columnspan=2, pady=5, padx=5)
 
     field_col = 0
     field_labels = (
@@ -660,34 +631,22 @@ def build_sensor_readings_gui():
 
 
 def build_events_gui():
-
+    """
+    This docstring applies to all 4 build_{tablename}_gui functions
+    this function starts by destroying the current window. (I got that code from the coffee/donut shop project in advanced python) it then creates a new window. It uses the turn_tables_into_list_of_dicts function and assigns the values returned, it then uses only the relevant one to create the table by looping over the list of dictionaries the turn_tables_into_list_of_dicts function returns then assigning each row a dictionary, and each column of that row with it's respective dictionary value. It then goes and does the next row/dict. 
+    """
+    
     for widget in root.winfo_children():
         if isinstance(widget, tk.Frame):
             widget.destroy()
-
-    nav_frame = tk.Frame(root)
-    nav_frame.pack(padx=10, pady=10)
-
-    tk.Button(nav_frame, text="Videos", font=("TkDefaultFont", 14), command=build_videos_gui).pack(
-        side="left", padx=5)
-
-    tk.Button(nav_frame, text="Astro's Status", font=("TkDefaultFont", 14),
-              command=build_astro_status_gui).pack(side="left", padx=5)
-
-    tk.Button(nav_frame, text="Sensor Readings", font=("TkDefaultFont", 14),
-              command=build_sensor_readings_gui).pack(side="left", padx=5)
-
-    tk.Button(nav_frame, text="Events", font=("TkDefaultFont", 14, "bold"), background="light grey", command=build_events_gui).pack(
-        side="left", padx=5)
-
 
     events_frame = tk.Frame(root)
     events_frame.pack(padx=10, pady=10)
 
     video_data, astroStatus_data, sensor_data, event_data = turn_tables_into_list_of_dicts()
 
-    # tk.Label(events_frame, text="events", font=("TkDefaultFont", 14, "bold")).grid(
-    #     row=0, column=0, columnspan=2, pady=5, padx=5)
+    tk.Label(events_frame, text="Events", font=("TkDefaultFont", 14, "bold")).grid(
+        row=0, column=0, columnspan=2, pady=5, padx=5)
 
     field_col = 0
     field_labels = (
@@ -730,6 +689,29 @@ def build_events_gui():
             row=i, column=12, padx=10, pady=5)
         i += 1
 
+def make_menu():
+    """
+    Adapted from an assignment in Python 2 (Coffee/donut shop)
+    """
+    video_menu = tk.Menu(menu_bar, tearoff=0)
+    astro_status_menu = tk.Menu(menu_bar, tearoff=0)
+    sensor_readings_menu = tk.Menu(menu_bar, tearoff=0)
+    events_menu = tk.Menu(menu_bar, tearoff=0)
+
+    menu_bar.add_cascade(label="Videos", menu=video_menu)
+    menu_bar.add_cascade(label="Astro's Status", menu=astro_status_menu)
+    menu_bar.add_cascade(label="Sensor Readings", menu=sensor_readings_menu)
+    menu_bar.add_cascade(label="Events", menu=events_menu)
+
+
+    video_menu.add_command(label="Show Videos", command=build_videos_gui)
+    astro_status_menu.add_command(
+        label="Show Astro's Status", command=build_astro_status_gui)
+    sensor_readings_menu.add_command(
+        label="Show Sensor Readings", command=build_sensor_readings_gui)
+    events_menu.add_command(label="Show Events", command=build_events_gui)
+
+make_menu()
 
 build_videos_gui()
 
